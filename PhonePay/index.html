@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="status">
+
+    </div>
+    <!-- amount start here -->
+    <div id="enterAmount">
+        <!-- <input  id="amount" type="number" placeholder="enter your amount">
+        <label > amount</label> -->
+        <br>
+        <input id="upi" type="text" placeholder="enter your upi">
+        <label > upi</label>
+    </div>
+<!-- button start here -->
+    <div id="btn">
+       <button onclick="payNow()"> payNow</button>
+    </div>
+</body>
+</html>
+<script>
+ let amount=document.getElementById("amount");
+ let upi=document.getElementById("upi");
+ let status=document.getElementById("status");
+
+function payNow() {
+    let promise=new Promise((resolve,reject)=>{
+    status.innerText="Facing..."
+       setTimeout(() => {
+        // console.log("facing....");
+        console.log("success");
+        if (upi.value=="vinaychaudhary@ybl") {
+           resolve("accepted");
+        }
+        else{
+            reject("rejected");
+        }
+       }, 2000);
+    })
+    
+   promise.then((res)=>{
+    //  console.log(res);
+     status.innerText=res;
+   });
+   promise.catch((rej)=>{
+    // console.log(rej);
+    status.innerText=rej;
+   })
+
+
+}
+
+</script>

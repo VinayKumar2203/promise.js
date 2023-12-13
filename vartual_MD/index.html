@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body{
+            background-color:rgb(237, 227, 220) ;
+        }
+#main{
+/* border: 2px solid red; */
+height: auto;
+width: 350px;
+margin: auto;
+background-color: rgb(117, 153, 243);
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;border-radius: 20px;
+}
+#status{
+text-align: center;
+}
+#foodItems{
+    text-align: center;
+
+}
+#foodItems label{
+    font-size: larger;
+    font-weight: 700;
+}
+#foodItems input{
+    cursor: pointer;
+    width: 20px;
+    
+}
+button{
+    
+    display: flex;
+    margin: auto;
+    font-size: 20px;
+    border-radius: 10px;
+    margin-top: 15px;
+    background-color: red;
+    cursor: pointer;
+
+}
+button:hover{
+    border: white;
+}
+#imageCont{
+    text-align: center;
+}
+    </style>
+</head>
+<body>
+<div id="main">
+    <h1 style="text-align: center;"> virtual mcbonald's </h1>
+
+    <div id="status">
+        
+    </div>
+    <div id="imageCont">
+  
+
+    </div>
+   <!-- food items start here -->
+   <div id="foodItems">
+     <label >burger</label>
+     <input type="checkbox" value="burger">
+
+
+     <label >fries</label>
+     <input type="checkbox" value="fries">
+
+
+     <label >pasta</label>
+     <input type="checkbox" value="pasta">
+    
+    </div>
+
+<!-- button start here -->
+   <button id="btn" onclick="orderFood()">Order Food</button>
+   <button onclick="completeOrder()">Complete Order</button>
+</div>
+</body>
+</html>
+<script>
+  let foodItems=document.querySelectorAll("#foodItems input");
+
+
+  let status=document.querySelector("#status");
+  function completeOrder() {
+    location.reload()
+  }
+  
+  function orderFood() {
+    let items=Array.from(foodItems);
+    let h1=document.createElement("h1");
+    h1.innerText="Food is being  ordered";
+    status.append(h1)
+    promiseCreate(items).then((res)=>{
+       console.log(res)
+
+       h1.innerText=`${res} has been  sucessfully ordered`;
+    })
+
+
+  }
+
+
+function promiseCreate(items) {
+    
+    let imageCont=document.querySelector("#imageCont");
+     
+
+
+    let images=[
+     
+    {
+        name:"burger",
+        URL:"https://images.pexels.com/photos/19259150/pexels-photo-19259150/free-photo-of-close-up-of-a-burger-covered-in-melted-cheese.jpeg?auto=compress&cs=tinysrgb&w=400",
+
+    },
+     
+    {
+        name:"fries",
+        URL:"https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=400"
+    },
+     
+    {
+        name:"pasta",
+         URL:"https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg?auto=compress&cs=tinysrgb&w=400"
+    },
+
+    ]
+     
+
+    let checkedItems=items.filter((ele)=>{
+       return ele.checked
+    })
+
+
+let imageFilter=images.filter((ele)=>{
+   return ele.name==checkedItems[0].value
+})
+
+//creating image
+let image=document.createElement("img");
+image.src=imageFilter[0].URL
+image.style.width="200px"
+
+imageCont.append(image);
+
+
+
+   
+
+
+
+let promise =new Promise((resolve,reject)=>{
+ 
+    setTimeout(() => {
+        resolve(checkedItems[0].value)
+    }, 2000);
+
+})
+
+return promise
+
+}
+
+  console.log(foodItems);
+
+
+
+</script>
